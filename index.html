@@ -1,362 +1,344 @@
-<!DOCTYPE HTML>
-<!--
-	Dimension by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Dimension by HTML5 UP</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<base target="_top">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+	<title>SDG Map with Leaflet</title>
 
-				<!-- Header -->
-					<header id="header">
-						<div class="logo">
-							<span class="icon fa-gem"></span>
-						</div>
-						<div class="content">
-							<div class="inner">
-								<h1>Dimension</h1>
-								<p>A fully responsive site template designed by <a href="https://html5up.net">HTML5 UP</a> and released<br />
-								for free under the <a href="https://html5up.net/license">Creative Commons</a> license.</p>
-							</div>
-						</div>
-						<nav>
-							<ul>
-								<li><a href="#intro">Intro</a></li>
-								<li><a href="#work">Work</a></li>
-								<li><a href="#about">About</a></li>
-								<li><a href="#contact">Contact</a></li>
-								<!--<li><a href="#elements">Elements</a></li>-->
-							</ul>
-						</nav>
-					</header>
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
 
-				<!-- Main -->
-					<div id="main">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
 
-						<!-- Intro -->
-							<article id="intro">
-								<h2 class="major">Intro</h2>
-								<span class="image main"><img src="images/pic01.jpg" alt="" /></span>
-								<p>Aenean ornare velit lacus, ac varius enim ullamcorper eu. Proin aliquam facilisis ante interdum congue. Integer mollis, nisl amet convallis, porttitor magna ullamcorper, amet egestas mauris. Ut magna finibus nisi nec lacinia. Nam maximus erat id euismod egestas. By the way, check out my <a href="#work">awesome work</a>.</p>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel sed vehicula.</p>
-							</article>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
 
-						<!-- Work -->
-							<article id="work">
-								<h2 class="major">Work</h2>
-								<span class="image main"><img src="images/pic02.jpg" alt="" /></span>
-								<p>Adipiscing magna sed dolor elit. Praesent eleifend dignissim arcu, at eleifend sapien imperdiet ac. Aliquam erat volutpat. Praesent urna nisi, fringila lorem et vehicula lacinia quam. Integer sollicitudin mauris nec lorem luctus ultrices.</p>
-								<p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero. Mauris aliquet magna magna sed nunc rhoncus pharetra. Pellentesque condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis libero. Mauris aliquet magna magna sed nunc rhoncus amet feugiat tempus.</p>
-							</article>
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		.leaflet-container {
+			height: 400px;
+			width: 600px;
+			max-width: 100%;
+			max-height: 100%;
+		}
+	</style>
 
-						<!-- About -->
-							<article id="about">
-								<h2 class="major">About</h2>
-								<span class="image main"><img src="images/pic03.jpg" alt="" /></span>
-								<p>Lorem ipsum dolor sit amet, consectetur et adipiscing elit. Praesent eleifend dignissim arcu, at eleifend sapien imperdiet ac. Aliquam erat volutpat. Praesent urna nisi, fringila lorem et vehicula lacinia quam. Integer sollicitudin mauris nec lorem luctus ultrices. Aliquam libero et malesuada fames ac ante ipsum primis in faucibus. Cras viverra ligula sit amet ex mollis mattis lorem ipsum dolor sit amet.</p>
-							</article>
+	<style>
+		#map { width: 800px; height: 500px; }
 
-						<!-- Contact -->
-							<article id="contact">
-								<h2 class="major">Contact</h2>
-								<form method="post" action="#">
-									<div class="fields">
-										<div class="field half">
-											<label for="name">Name</label>
-											<input type="text" name="name" id="name" />
-										</div>
-										<div class="field half">
-											<label for="email">Email</label>
-											<input type="text" name="email" id="email" />
-										</div>
-										<div class="field">
-											<label for="message">Message</label>
-											<textarea name="message" id="message" rows="4"></textarea>
-										</div>
-									</div>
-									<ul class="actions">
-										<li><input type="submit" value="Send Message" class="primary" /></li>
-										<li><input type="reset" value="Reset" /></li>
-									</ul>
-								</form>
-								<ul class="icons">
-									<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-									<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-									<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-									<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-								</ul>
-							</article>
+		.info {
+			padding: 6px 8px;
+			font: 14px/16px Arial, Helvetica, sans-serif;
+			background: white;
+			background: rgba(255,255,255,0.8);
+			box-shadow: 0 0 15px rgba(0,0,0,0.2);
+			border-radius: 5px;
+		}
 
-						<!-- Elements -->
-							<article id="elements">
-								<h2 class="major">Elements</h2>
+		.info h4 {
+			margin: 0 0 5px;
+			color: #777;
+		}
 
-								<section>
-									<h3 class="major">Text</h3>
-									<p>This is <b>bold</b> and this is <strong>strong</strong>. This is <i>italic</i> and this is <em>emphasized</em>.
-									This is <sup>superscript</sup> text and this is <sub>subscript</sub> text.
-									This is <u>underlined</u> and this is code: <code>for (;;) { ... }</code>. Finally, <a href="#">this is a link</a>.</p>
-									<hr />
-									<h2>Heading Level 2</h2>
-									<h3>Heading Level 3</h3>
-									<h4>Heading Level 4</h4>
-									<h5>Heading Level 5</h5>
-									<h6>Heading Level 6</h6>
-									<hr />
-									<h4>Blockquote</h4>
-									<blockquote>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan faucibus. Vestibulum ante ipsum primis in faucibus lorem ipsum dolor sit amet nullam adipiscing eu felis.</blockquote>
-									<h4>Preformatted</h4>
-									<pre><code>i = 0;
+		.legend {
+			text-align: left;
+			line-height: 18px;
+			color: #555;
+		}
 
-while (!deck.isInOrder()) {
-    print 'Iteration ' + i;
-    deck.shuffle();
-    i++;
-}
+		.legend i {
+			width: 18px;
+			height: 18px;
+			float: left;
+			margin-right: 8px;
+			opacity: 0.7;
+		}
+	</style>
 
-print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
-								</section>
+	<style>
+		:root{
+			--max-width:1100px;
+			--accent:#0868ac;
+			--muted:#6b7280;
+			--card-bg:#ffffff;
+			--page-bg:#f6f7f9;
+		}
+		html,body{background:var(--page-bg)}
+		body{font-family:Inter, Arial, Helvetica, sans-serif;line-height:1.6;color:#111;margin:0}
+		.container{max-width:var(--max-width);margin:0 auto;padding:20px}
+		.site-header{background:linear-gradient(180deg, #ffffff, #fbfdfe);box-shadow:0 2px 8px rgba(16,24,40,0.04);position:sticky;top:0;z-index:40}
+		.site-header .container{display:flex;align-items:center;justify-content:space-between;gap:12px}
+		.site-header h1{font-size:18px;margin:8px 0;color:var(--accent);letter-spacing:0.2px}
+		nav{display:flex;align-items:center;gap:6px}
+		nav a{margin:0 6px;color:var(--accent);text-decoration:none;font-weight:600;padding:8px;border-radius:6px}
+		nav a:hover, nav a.active{background:#e9f3fb}
+		.nav-toggle{display:none;background:transparent;border:0;font-size:20px}
+		.hero{padding:28px;background:linear-gradient(90deg,#eef7fb, #ffffff);border-radius:10px;margin:18px 0}
+		.hero h2{margin:0 0 6px;font-size:26px;color:#0f172a}
+		.hero p{margin:0 0 14px;color:var(--muted);max-width:720px}
+		.intro-grid{display:grid;grid-template-columns:1fr minmax(220px,280px);gap:22px;align-items:start}
+		.portrait-placeholder{min-height:220px;padding:20px;background:#fff;border:2px dashed rgba(8,104,172,0.4);border-radius:18px;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--muted);font-size:15px;line-height:1.5}
+		.assignment{padding:0;margin:18px 0}
+		.assignment h3{margin:0 0 8px;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+		.assignments-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:12px}
+		.card{background:var(--card-bg);border-radius:10px;padding:14px;box-shadow:0 6px 18px rgba(15,23,42,0.06);transition:transform .18s,box-shadow .18s}
+		.card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(15,23,42,0.08)}
+		.card h4{margin:0 0 8px;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+		.card p{margin:0;color:var(--muted);font-size:14px}
+		.card .btn{display:inline-block;margin-top:10px;padding:8px 12px;background:var(--accent);color:#fff;border-radius:6px;text-decoration:none;font-size:13px}
+		footer{padding:18px 0;color:var(--muted);font-size:13px;text-align:center}
+		/* Make the map responsive */
+		#map{width:100%;height:520px;max-width:100%;border-radius:8px;box-shadow:0 6px 18px rgba(15,23,42,0.06)}
+		@media (max-width:900px){
+			.site-header .container{padding:8px}
+			nav{display:none}
+			.nav-toggle{display:block}
+		}
+		@media (max-width:700px){#map{height:360px}}
+	</style>
+</head>
 
-								<section>
-									<h3 class="major">Lists</h3>
+<body>
 
-									<h4>Unordered</h4>
-									<ul>
-										<li>Dolor pulvinar etiam.</li>
-										<li>Sagittis adipiscing.</li>
-										<li>Felis enim feugiat.</li>
-									</ul>
+<header class="site-header">
+	<div class="container">
+		<h1>SDG Choropleth Portfolio</h1>
+		<nav>
+			<a href="#main">Home</a>
+			<a href="#assignment1">Assignment 1</a>
+			<a href="assignment2.html">Assignment 2</a>
+			<a href="assignment3.html">Assignment 3</a>
+			<a href="assignment4.html">Assignment 4</a>
+			<a href="assignment5.html">Assignment 5</a>
+			<a href="#assignment6">Assignment 6</a>
+		</nav>
+	</div>
+</header>
 
-									<h4>Alternate</h4>
-									<ul class="alt">
-										<li>Dolor pulvinar etiam.</li>
-										<li>Sagittis adipiscing.</li>
-										<li>Felis enim feugiat.</li>
-									</ul>
+<main class="container">
 
-									<h4>Ordered</h4>
-									<ol>
-										<li>Dolor pulvinar etiam.</li>
-										<li>Etiam vel felis viverra.</li>
-										<li>Felis enim feugiat.</li>
-										<li>Dolor pulvinar etiam.</li>
-										<li>Etiam vel felis lorem.</li>
-										<li>Felis enim et feugiat.</li>
-									</ol>
-									<h4>Icons</h4>
-									<ul class="icons">
-										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-										<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
-									</ul>
-
-									<h4>Actions</h4>
-									<ul class="actions">
-										<li><a href="#" class="button primary">Default</a></li>
-										<li><a href="#" class="button">Default</a></li>
-									</ul>
-									<ul class="actions stacked">
-										<li><a href="#" class="button primary">Default</a></li>
-										<li><a href="#" class="button">Default</a></li>
-									</ul>
-								</section>
-
-								<section>
-									<h3 class="major">Table</h3>
-									<h4>Default</h4>
-									<div class="table-wrapper">
-										<table>
-											<thead>
-												<tr>
-													<th>Name</th>
-													<th>Description</th>
-													<th>Price</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>Item One</td>
-													<td>Ante turpis integer aliquet porttitor.</td>
-													<td>29.99</td>
-												</tr>
-												<tr>
-													<td>Item Two</td>
-													<td>Vis ac commodo adipiscing arcu aliquet.</td>
-													<td>19.99</td>
-												</tr>
-												<tr>
-													<td>Item Three</td>
-													<td> Morbi faucibus arcu accumsan lorem.</td>
-													<td>29.99</td>
-												</tr>
-												<tr>
-													<td>Item Four</td>
-													<td>Vitae integer tempus condimentum.</td>
-													<td>19.99</td>
-												</tr>
-												<tr>
-													<td>Item Five</td>
-													<td>Ante turpis integer aliquet porttitor.</td>
-													<td>29.99</td>
-												</tr>
-											</tbody>
-											<tfoot>
-												<tr>
-													<td colspan="2"></td>
-													<td>100.00</td>
-												</tr>
-											</tfoot>
-										</table>
-									</div>
-
-									<h4>Alternate</h4>
-									<div class="table-wrapper">
-										<table class="alt">
-											<thead>
-												<tr>
-													<th>Name</th>
-													<th>Description</th>
-													<th>Price</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>Item One</td>
-													<td>Ante turpis integer aliquet porttitor.</td>
-													<td>29.99</td>
-												</tr>
-												<tr>
-													<td>Item Two</td>
-													<td>Vis ac commodo adipiscing arcu aliquet.</td>
-													<td>19.99</td>
-												</tr>
-												<tr>
-													<td>Item Three</td>
-													<td> Morbi faucibus arcu accumsan lorem.</td>
-													<td>29.99</td>
-												</tr>
-												<tr>
-													<td>Item Four</td>
-													<td>Vitae integer tempus condimentum.</td>
-													<td>19.99</td>
-												</tr>
-												<tr>
-													<td>Item Five</td>
-													<td>Ante turpis integer aliquet porttitor.</td>
-													<td>29.99</td>
-												</tr>
-											</tbody>
-											<tfoot>
-												<tr>
-													<td colspan="2"></td>
-													<td>100.00</td>
-												</tr>
-											</tfoot>
-										</table>
-									</div>
-								</section>
-
-								<section>
-									<h3 class="major">Buttons</h3>
-									<ul class="actions">
-										<li><a href="#" class="button primary">Primary</a></li>
-										<li><a href="#" class="button">Default</a></li>
-									</ul>
-									<ul class="actions">
-										<li><a href="#" class="button">Default</a></li>
-										<li><a href="#" class="button small">Small</a></li>
-									</ul>
-									<ul class="actions">
-										<li><a href="#" class="button primary icon solid fa-download">Icon</a></li>
-										<li><a href="#" class="button icon solid fa-download">Icon</a></li>
-									</ul>
-									<ul class="actions">
-										<li><span class="button primary disabled">Disabled</span></li>
-										<li><span class="button disabled">Disabled</span></li>
-									</ul>
-								</section>
-
-								<section>
-									<h3 class="major">Form</h3>
-									<form method="post" action="#">
-										<div class="fields">
-											<div class="field half">
-												<label for="demo-name">Name</label>
-												<input type="text" name="demo-name" id="demo-name" value="" placeholder="Jane Doe" />
-											</div>
-											<div class="field half">
-												<label for="demo-email">Email</label>
-												<input type="email" name="demo-email" id="demo-email" value="" placeholder="jane@untitled.tld" />
-											</div>
-											<div class="field">
-												<label for="demo-category">Category</label>
-												<select name="demo-category" id="demo-category">
-													<option value="">-</option>
-													<option value="1">Manufacturing</option>
-													<option value="1">Shipping</option>
-													<option value="1">Administration</option>
-													<option value="1">Human Resources</option>
-												</select>
-											</div>
-											<div class="field half">
-												<input type="radio" id="demo-priority-low" name="demo-priority" checked>
-												<label for="demo-priority-low">Low</label>
-											</div>
-											<div class="field half">
-												<input type="radio" id="demo-priority-high" name="demo-priority">
-												<label for="demo-priority-high">High</label>
-											</div>
-											<div class="field half">
-												<input type="checkbox" id="demo-copy" name="demo-copy">
-												<label for="demo-copy">Email me a copy</label>
-											</div>
-											<div class="field half">
-												<input type="checkbox" id="demo-human" name="demo-human" checked>
-												<label for="demo-human">Not a robot</label>
-											</div>
-											<div class="field">
-												<label for="demo-message">Message</label>
-												<textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
-											</div>
-										</div>
-										<ul class="actions">
-											<li><input type="submit" value="Send Message" class="primary" /></li>
-											<li><input type="reset" value="Reset" /></li>
-										</ul>
-									</form>
-								</section>
-
-							</article>
-
-					</div>
-
-				<!-- Footer -->
-					<footer id="footer">
-						<p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-					</footer>
-
+	<section id="main" class="hero">
+		<div class="intro-grid">
+			<div>
+				<h2>SDG Choropleth Portfolio</h2>
+				<p>This portfolio was created during a GIS course at Utrecht University. It contains a set of assignments that demonstrate spatial analysis, cartographic storytelling, remote sensing interpretation, and interactive web mapping using Leaflet.</p>
+				<p>The site includes the interactive SDG choropleth map, data processing and visualization outputs, historic map overlays, image classification results, and NDVI/deforestation comparisons.</p>
 			</div>
+			<div class="portrait-placeholder">
+				Portrait placeholder
+				<br>
+				<small>Replace this with a portrait image later</small>
+			</div>
+		</div>
+	</section>
 
-		<!-- BG -->
-			<div id="bg"></div>
+	<section id="assignment1" class="assignment">
+		<h3>Assignment 1 — SDG 5 Choropleth Map</h3>
+		<p>Interactive map showing proportion of women in parliament.</p>
+		<div id="map" class="leaflet-container"></div>
+	</section>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+	<section class="assignment">
+		<h3>Other Assignments</h3>
+		<div class="assignments-grid">
+			<article id="assignment2" class="card">
+				<h4>Assignment 2</h4>
+				<p>Analytical report and visuals for Assignment 2.</p>
+				<a class="btn" href="assignment2.html">Open</a>
+			</article>
+			<article id="assignment3" class="card">
+				<h4>Assignment 3</h4>
+				<p>Historical map comparison and elevation analysis.</p>
+				<a class="btn" href="assignment3.html">Open</a>
+			</article>
+			<article id="assignment4" class="card">
+				<h4>Assignment 4</h4>
+				<p>Data processing and visualization for Assignment 4.</p>
+				<a class="btn" href="assignment4.html">Open</a>
+			</article>
+			<article id="assignment5" class="card">
+				<h4>Assignment 5</h4>
+				<p>Image classification experiments and derived indices.</p>
+				<a class="btn" href="assignment5.html">Open</a>
+			</article>
+			<article id="assignment6" class="card">
+				<h4>Assignment 6</h4>
+				<p>Placeholder summary for assignment 6.</p>
+				<a class="btn" href="#assignment6">Open</a>
+			</article>
+		</div>
+	</section>
 
-	</body>
+</main>
+
+<footer>
+	<div class="container">© SDG Choropleth Portfolio — created for GIS assignments</div>
+</footer>
+
+<!-- Keep the map data and scripts (map initialisation preserved) -->
+<!-- UPDATE: Replace with your geometry file -->
+<script>
+// Small UI helpers: mobile nav toggle, smooth scroll, and active nav links
+document.addEventListener('DOMContentLoaded', function(){
+	// smooth scroll for internal links
+	document.querySelectorAll('a[href^="#"]').forEach(function(a){
+		a.addEventListener('click', function(e){
+			const href = a.getAttribute('href');
+			if(href.length>1){
+				const el = document.querySelector(href);
+				if(el){
+					e.preventDefault();
+					el.scrollIntoView({behavior:'smooth',block:'start'});
+				}
+			}
+		});
+	});
+
+	// active nav link on scroll using IntersectionObserver
+	const sections = document.querySelectorAll('main section, main article');
+	const navLinks = document.querySelectorAll('nav a');
+	const obs = new IntersectionObserver((entries)=>{
+		entries.forEach(entry=>{
+			if(entry.isIntersecting){
+				const id = entry.target.id;
+				navLinks.forEach(l=>l.classList.toggle('active', l.getAttribute('href')===`#${id}`));
+			}
+		});
+	},{threshold:0.45});
+	sections.forEach(s=>{ if(s.id) obs.observe(s); });
+});
+</script>
+<script type="text/javascript" src="ChloroplethJSON.geojson"></script>
+<script type="text/javascript" src="Women_Parliament_GeoJSON.js"></script>
+
+<script type="text/javascript">
+
+	const map = L.map('map').setView([10, 10], 2);
+
+	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+
+	const info = L.control();
+
+	info.onAdd = function (map) {
+		this._div = L.DomUtil.create('div', 'info');
+		this.update();
+		return this._div;
+	};
+
+	info.update = function (props) {
+		const contents = props
+			? `<b>${props.nam_en}</b><br />${props["SG_GEN_PARL - Copy_2020"]}% women in parliament`
+			: 'Hover over a country';
+
+		this._div.innerHTML =
+			`<h4>5.5.1 Proportion of seats held by women in national parliaments (%)</h4>${contents}`;
+	};
+
+	info.addTo(map);
+
+	function getColor(d) {
+		return d > 50 ? '#084081' :
+			d > 40 ? '#0868ac' :
+			d > 30 ? '#2b8cbe' :
+			d > 20 ? '#4eb3d3' :
+			d > 10 ? '#7bccc4' :
+			d > 0  ? '#a8ddb5' :
+					  '#f7fcf0';
+	}
+
+	function style(feature) {
+		return {
+			weight: 2,
+			opacity: 1,
+			color: 'white',
+			dashArray: '3',
+			fillOpacity: 0.7,
+			fillColor: getColor(feature.properties["SG_GEN_PARL - Copy_2020"])
+		};
+	}
+
+	function highlightFeature(e) {
+		const layer = e.target;
+
+		layer.setStyle({
+			weight: 5,
+			color: '#666',
+			dashArray: '',
+			fillOpacity: 0.7
+		});
+
+		layer.bringToFront();
+
+		info.update(layer.feature.properties);
+	}
+
+	/* global ChloroplethJSON */
+
+	if (typeof nationData !== 'undefined') {
+		const geojson = L.geoJson(nationData, {
+			style,
+			onEachFeature
+		}).addTo(map);
+
+		function resetHighlight(e) {
+			geojson.resetStyle(e.target);
+			info.update();
+		}
+
+		function zoomToFeature(e) {
+			map.fitBounds(e.target.getBounds());
+		}
+
+		function onEachFeature(feature, layer) {
+			layer.on({
+				mouseover: highlightFeature,
+				mouseout: resetHighlight,
+				click: zoomToFeature
+			});
+		}
+
+		const legend = L.control({position: 'bottomright'});
+
+		legend.onAdd = function (map) {
+
+			const div = L.DomUtil.create('div', 'info legend');
+
+			const grades = [0, 10, 20, 30, 40, 50];
+
+			const labels = [];
+			let from, to;
+
+			for (let i = 0; i < grades.length; i++) {
+				from = grades[i];
+				to = grades[i + 1];
+
+				labels.push(
+					`<i style="background:${getColor(from + 1)}"></i> ${from}${to ? `&ndash;${to}` : '+'}`
+				);
+			}
+
+			labels.push(`<i style="background:#FFFFFF"></i> No Data`);
+
+			div.innerHTML = labels.join('<br>');
+			return div;
+		};
+
+		legend.addTo(map);
+	} else {
+		console.warn('nationData not found. Ensure ChloroplethJSON.geojson is loaded before this script.');
+	}
+
+</script>
+
+</body>
 </html>
